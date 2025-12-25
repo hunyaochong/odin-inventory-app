@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hun's Categories</title>
+</head>
+<body>
+    <h1>Categories</h1>
+    <% categories.forEach((category) => { %>
+        <div>
+            <a href="/products?category=<%= category.id %>"><%= category.name %></a>
+            <h3><%= category.description %></h3>
+            <button type="button" onclick="deleteCategory(<%= category.id %>)">Delete</button>
+        </div>
+    <% }); %>
+
+    <script>
+        function deleteCategory(id) {
+            fetch(`/categories/${id}`, {
+                method: 'DELETE',
+            })
+            .then(httpResponse => httpResponse.json())
+            .then(data => window.location.href = data.redirect)
+            .catch(err => console.error(err));
+        }
+    </script>
+</body>
+</html>

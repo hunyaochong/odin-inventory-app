@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+</head>
+<body>
+    <h1>Products</h1>
+    <% products.forEach((product) => { %>
+        <div>
+            <h2><%= product.name %></h2>    
+            <h3><%= product.description %></h3>
+        </div>
+    <% }); %>
+    
+    <form action="/products" method="get">
+        <!-- search bar -->
+         <label for="search" class="form-title"></label>
+         <input type="text" name="search" id="search">
+
+         <button type="submit">Search</button>
+    </form>
+
+    <form action="/products" method="get">
+        <!-- sort by price -->
+        <label for="sort" class="form-title">Sort By Price:</label>
+        <br>
+        <input type="radio" name="sort" id="priceAsc" value="asc" <%= selectedSort === 'asc' ? 'checked' : '' %>>
+        <label for="priceAsc">Ascending</label>
+        <br>
+        <input type="radio" name="sort" id="priceDesc" value="desc" <%= selectedSort === 'desc' ? 'checked' : '' %>>
+        <label for="priceDesc">Descending</label>
+        <br>
+
+        <!-- sort by category -->
+        <label for="filter" class="form-title">Filter By Category:</label>
+        <br>
+        <% categories.forEach((category) => { %>
+            <input type="radio" id="<%= category.id %>" name="category" value="<%= category.id %>" <%= selectedCategory === category.id.toString() ? 'checked' : '' %>>
+            <label for="<%= category.id %>"><%= category.name %></label>
+        <% }); %>
+        <br>
+
+        <!-- Apply filter -->
+        <button type="submit">Apply Filters</button>
+    </form>
+</body>
+</html> 
